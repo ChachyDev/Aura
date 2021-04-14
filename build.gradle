@@ -1,0 +1,27 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.4.32' apply false
+}
+
+allprojects {
+    apply plugin: "kotlin"
+
+    group 'club.chachy'
+    version '1.0.0'
+
+    repositories {
+        mavenCentral()
+        maven {
+            name 'm2-dv8tion'
+            url 'https://m2.dv8tion.net/releases'
+        }
+    }
+
+    dependencies {
+        implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    }
+}
+
+dependencies {
+    implementation project(":core")
+    implementation project(":core:command-handler")
+}

@@ -1,0 +1,11 @@
+# Project exclude paths
+/.gradle/
+/build/
+/core/build/
+/core/command-handler/build/
+/core/command-handler/out/
+/core/command-handler/out/production/classes/
+/core/out/
+/core/out/production/classes/
+/out/
+/out/production/classes/
