@@ -9,3 +9,5 @@
 /core/out/production/classes/
 /out/
 /out/production/classes/
+/.idea/
+/properties.env

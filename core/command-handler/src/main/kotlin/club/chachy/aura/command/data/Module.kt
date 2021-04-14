@@ -7,5 +7,5 @@ data class Module(val name: String, private val cmds: MutableList<Command> = Arr
         cmds.add(command)
     }
 
-    fun retrieveCommand(name: String) = cmds.find { it.name == name }
+    fun retrieveCommand(name: String) = cmds.find { it.name.equals(name, true) }
 }

@@ -10,8 +10,6 @@ class ArgumentsContainer(val factory: SerializationFactory, raw: List<String>, c
 
     @Suppress("UNCHECKED_CAST")
     inline operator fun <reified T> get(name: String): T? {
-        println(factory.serializers)
-        println(T::class.java)
         val serializer = (factory.serializers[T::class.java] ?: return null) as Serializer<T>
 
         val data = rawArgs[name] ?: return null
