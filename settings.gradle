@@ -1,3 +1,4 @@
 rootProject.name = 'Aura'
 
 include ":core:command-handler"
+include ":modules:aura-core"

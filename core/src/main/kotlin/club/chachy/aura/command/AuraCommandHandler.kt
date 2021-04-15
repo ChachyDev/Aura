@@ -38,6 +38,10 @@ class AuraCommandHandler(
         for (module in modules) {
             val command = module.retrieveCommand(name.removePrefix(prefix))
             if (command != null) {
+                if (command.permission.isNotEmpty()) {
+                    if (member == null) return
+                    command.permission.forEach { if (!member.hasPermission(it)) return }
+                }
                 val container = ArgumentsContainer(serializationFactory, args, command)
                 command.execution.invoke(
                     CommandExecutor(
