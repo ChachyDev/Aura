@@ -1,8 +1,8 @@
 package club.chachy.aura.command
 
 import club.chachy.aura.command.args.ArgumentsContainer
-import club.chachy.aura.command.data.executor.Channel
-import club.chachy.aura.command.data.executor.CommandExecutor
+import club.chachy.aura.command.data.executor.CommandContext
+import club.chachy.aura.command.data.executor.data.Channel
 import club.chachy.aura.command.factory.PrefixFactory
 import club.chachy.aura.command.serialization.SerializationFactory
 import net.dv8tion.jda.api.entities.Guild
@@ -44,7 +44,7 @@ class AuraCommandHandler(
                 }
                 val container = ArgumentsContainer(serializationFactory, args, command)
                 command.execution.invoke(
-                    CommandExecutor(
+                    CommandContext(
                         message,
                         author,
                         guild,

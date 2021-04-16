@@ -1,4 +1,3 @@
 dependencies {
     api "net.dv8tion:JDA:4.2.1_256"
-    api project(":core")
 }
