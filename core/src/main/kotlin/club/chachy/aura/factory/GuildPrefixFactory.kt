@@ -22,7 +22,6 @@ class GuildPrefixFactory(private val default: String = "a!") : PrefixFactory {
                     it[Guilds.prefix] = "a!"
                 }[Guilds.prefix]
 
-            println(prefix)
             return@transaction listOf(prefix)
         }
     }
