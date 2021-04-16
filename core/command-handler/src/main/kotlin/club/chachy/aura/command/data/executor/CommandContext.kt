@@ -19,7 +19,7 @@ data class CommandContext(
     fun reply(content: String) = channel.reply(content)
 
     fun error(reason: String) {
-        channel.send(embed {
+        channel.reply(embed {
             setAuthor("Error $separator ${author.asTag}", null, message.jda.selfUser.effectiveAvatarUrl)
             setColor(Colors.red_400.asColor())
             +reason
@@ -30,7 +30,7 @@ data class CommandContext(
     }
 
     fun success(reason: String) {
-        channel.send(embed {
+        channel.reply(embed {
             setAuthor("Success! $separator ${author.asTag}", null, message.jda.selfUser.effectiveAvatarUrl)
             setColor(Colors.green_400.asColor())
             +reason
