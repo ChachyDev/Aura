@@ -5,7 +5,7 @@ import club.chachy.aura.command.CommandHandler
 import club.chachy.aura.command.data.executor.CommandContext
 import club.chachy.aura.command.factory.PrefixFactory
 import club.chachy.aura.command.factory.default.DefaultPrefixFactory
-import club.chachy.aura.command.listener.CommandListener
+import club.chachy.aura.command.listener.BotListener
 import club.chachy.aura.command.serialization.SerializationFactory
 import club.chachy.aura.command.serialization.default.DefaultSerializationFactory
 import net.dv8tion.jda.api.JDA
@@ -40,7 +40,7 @@ class Aura(
 
     fun login() {
         val jda = JDABuilder.createDefault(token)
-            .addEventListeners(CommandListener(commandHandler))
+            .addEventListeners(BotListener(commandHandler))
             .apply(builder)
             .build()
 

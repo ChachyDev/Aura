@@ -1,7 +1,6 @@
 rootProject.name = 'Aura'
 
 include ":core:command-handler"
-include ":core:localization"
 include ":core:database"
 include ":core:utils"
 

@@ -1,6 +1,7 @@
 package club.chachy
 
 import club.chachy.aura.dsl.dsl.aura
+import club.chachy.aura.factory.GuildPrefixFactory
 import club.chachy.database.AuraDatabase
 import club.chachy.modules.createModules
 import club.chachy.utils.env
@@ -16,7 +17,7 @@ fun main() {
         env("DATABASE_USER"),
         env("DATABASE_PASSWORD")
     )
-    aura(env("BOT_TOKEN")) {
+    aura(env("BOT_TOKEN"), prefixFactory = GuildPrefixFactory()) {
         createModules()
 
         engine {
