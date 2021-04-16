@@ -16,6 +16,9 @@ allprojects {
             name 'm2-dv8tion'
             url 'https://m2.dv8tion.net/releases'
         }
+        maven {
+            url "https://jitpack.io"
+        }
     }
 
     dependencies {
@@ -26,5 +29,6 @@ allprojects {
 dependencies {
     implementation project(":core")
     implementation project(":core:command-handler")
+    implementation project(":core:database")
     implementation project(":modules")
 }

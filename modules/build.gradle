@@ -1,4 +1,6 @@
 dependencies {
     implementation project(":core")
     implementation project(":modules:aura-core")
+    implementation project(":modules:aura-moderation")
+    implementation "com.github.callicoder:java-snowflake:a166af56e2"
 }

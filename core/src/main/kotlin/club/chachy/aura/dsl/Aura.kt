@@ -2,6 +2,7 @@ package club.chachy.aura.dsl
 
 import club.chachy.aura.command.AuraCommandHandler
 import club.chachy.aura.command.CommandHandler
+import club.chachy.aura.command.data.executor.CommandContext
 import club.chachy.aura.command.factory.PrefixFactory
 import club.chachy.aura.command.factory.default.DefaultPrefixFactory
 import club.chachy.aura.command.listener.CommandListener
@@ -21,14 +22,30 @@ class Aura(
 
     private var builder: JDABuilder.() -> Unit = {}
 
+    private var ready: JDA.() -> Unit = {}
+
+    var error: CommandContext.() -> Unit = {}
+
     fun engine(block: JDABuilder.() -> Unit) {
         builder = block
     }
 
+    fun error(block: CommandContext.() -> Unit) {
+        error = block
+    }
+
+    fun onReady(block: JDA.() -> Unit) {
+        ready = block
+    }
+
     fun login() {
-        _jda = JDABuilder.createDefault(token)
+        val jda = JDABuilder.createDefault(token)
             .addEventListeners(CommandListener(commandHandler))
             .apply(builder)
             .build()
+
+        jda.awaitReady().run(ready)
+
+        _jda = jda
     }
 }

@@ -1,0 +1,5 @@
+dependencies {
+    api "net.dv8tion:JDA:4.2.1_256"
+    api project(":core:command-handler")
+    api "com.github.fcannizzaro:material-colors:0.1.0"
+}

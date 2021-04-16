@@ -1,0 +1,10 @@
+dependencies {
+    api("org.jetbrains.exposed:exposed-core:0.30.2") {
+        exclude module: "kotlin-stdlib"
+    }
+    api("org.jetbrains.exposed:exposed-jdbc:0.30.2") {
+        exclude module: "exposed-core"
+        exclude module: "kotlin-stdlib"
+    }
+    api "org.postgresql:postgresql:42.2.16"
+}

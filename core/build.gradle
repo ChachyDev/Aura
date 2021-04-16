@@ -1,3 +1,5 @@
 dependencies {
     api project(":core:command-handler")
+    api project(":core:utils")
+    implementation "com.github.MinnDevelopment:jda-reactor:8bf22ef"
 }
