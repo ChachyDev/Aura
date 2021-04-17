@@ -66,7 +66,10 @@ services:
       POSTGRES_PASSWORD: YOUR_PASSWORD_HERE
 ```
 
+If you have docker installed then simply copy this config to a file named `docker-compose.yml` and then
+run `docker compose up -d` to start the container
+
 #### Viewing
 
-To view your database contents we recommended you use [DataGrip](https://www.jetbrains.com/datagrip/), which we believe is an
-amazing tool to view many databases.
+To view your database contents we recommended you use [DataGrip](https://www.jetbrains.com/datagrip/), which we believe
+is an amazing tool to view many databases.
