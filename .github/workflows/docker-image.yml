@@ -13,7 +13,7 @@ jobs:
       run: |
         chmod +x ./gradlew
         ./gradlew distTar
-        mkdir /src/bot/
+        mkdir ./src/bot/
         cp ./build/distributions/Aura-*.tar ./src/bot/Aura.tar
     - name: Build and push Docker images
       uses: mr-smithers-excellent/docker-build-push@v4
