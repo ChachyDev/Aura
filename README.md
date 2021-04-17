@@ -40,7 +40,7 @@ about that :)
 #### Prerequisites
 
 - A JDK (JDK 15 is recommended)
-- An Integrated Development Environment (IDE) (Intellij IDEA is recommended)
+- An Integrated Development Environment (IDE) ([IntelliJ IDEA](https://www.jetbrains.com/idea/) is recommended)
 - PSQL (PostgreSQL) database
 
 #### Recommendations
