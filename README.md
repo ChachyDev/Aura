@@ -43,9 +43,9 @@ about that :)
 - An Integrated Development Environment (IDE) ([IntelliJ IDEA](https://www.jetbrains.com/idea/) is recommended)
 - PSQL (PostgreSQL) database
 
-## Recommendations
+### Recommendations
 
-### Database
+#### Database
 
 For your own sanity we recommend running the database in a [Docker](https://www.docker.com/) container. Checkout the
 official [Postgres Docker Image](https://hub.docker.com/_/postgres)
