@@ -1,10 +1,10 @@
 package club.chachy.modules
 
 import club.chachy.aura.dsl.Aura
-import club.chachy.core.AuraCoreModule
+import club.chachy.core.CoreModule
 import club.chachy.moderation.ModerationModule
 
 fun Aura.createModules() {
-    AuraCoreModule(this)
+    CoreModule(this)
     ModerationModule(this)
 }

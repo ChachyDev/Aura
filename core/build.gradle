@@ -1,5 +1,17 @@
+plugins {
+    id 'com.palantir.git-version' version '0.12.3'
+}
+
 dependencies {
     api project(":core:command-handler")
     api project(":core:utils")
     api project(":core:database")
+    implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '5.5.1.201910021850-r'
+}
+
+jar {
+    manifest {
+        def details = versionDetails()
+        attributes 'Implementation-Version' : "${details.gitHash}-${details.branchName}"
+    }
 }

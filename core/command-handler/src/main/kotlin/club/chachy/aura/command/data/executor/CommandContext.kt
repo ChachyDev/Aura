@@ -13,7 +13,7 @@ data class CommandContext(
     val guild: Guild?,
     val member: Member?,
     val channel: Channel,
-    val args: ArgumentsContainer
+    val args: ArgumentsContainer,
 ) {
     fun reply(content: String) = channel.reply(content)
 }
