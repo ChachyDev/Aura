@@ -29,7 +29,7 @@ version: '3.4'
 services:
   aura:
     container_name: aura-bot
-    image: docker.pkg.github.com/chachydev/aura/aura:latest-master
+    image: docker.pkg.github.com/chachydev/aura/aura-master:latest
     restart: always
     env_file:
       - aura.env
