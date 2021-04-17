@@ -19,7 +19,7 @@ jobs:
         uses: mr-smithers-excellent/docker-build-push@v4
         with:
           image: aura/aura
-          tag: ${GITHUB_REF##*/}-$(git rev-parse --short "$GITHUB_SHA")
+          tag: latest
           dockerfile: Dockerfile
           registry: docker.pkg.github.com
           username: ${{ github.actor }}
