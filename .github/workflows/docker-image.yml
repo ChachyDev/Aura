@@ -18,8 +18,8 @@ jobs:
       - name: Build and push Docker images
         uses: mr-smithers-excellent/docker-build-push@v4
         with:
-          image: aura/aura
-          tag: latest-${GITHUB_REF##*/}
+          image: aura/aura-${GITHUB_REF##*/}
+          tag: latest
           dockerfile: Dockerfile
           registry: docker.pkg.github.com
           username: ${{ github.actor }}
