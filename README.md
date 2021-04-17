@@ -2,7 +2,7 @@
 
 # Aura
 
-The only discord bot you will need
+The only discord bot you will ever need.
 </div>
 
 ## Technical Stuff
