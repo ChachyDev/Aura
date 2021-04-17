@@ -22,16 +22,14 @@ The only discord bot you will ever need.
 - A JRE (JRE 15 is recommended)
 
 #### The Docker Compose Way
-In your terminal, run `docker pull docker.pkg.github.com/chachydev/aura/aura:latest` (Warning: You must be logged into the GitHub Package Registry!)
-
-Once the command is completed if you do not have a docker-compose.yml file create one and use the structure below:
+If you do not have a docker-compose.yml file create one and use the structure below:
 ```yaml
 version: '3.4'
 
 services:
   aura:
     container_name: aura-bot
-    image: aura:latest
+    image: docker.pkg.github.com/chachydev/aura/aura:latest-master
     restart: always
     env_file:
       - aura.env
