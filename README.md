@@ -43,8 +43,30 @@ about that :)
 - An Integrated Development Environment (IDE) ([IntelliJ IDEA](https://www.jetbrains.com/idea/) is recommended)
 - PSQL (PostgreSQL) database
 
-#### Recommendations
+## Recommendations
 
-For your own sanity we recommend running the database in a [Docker](https://www.docker.com/) container.
+### Database
 
-Checkout the official [Postgres Docker Image](https://hub.docker.com/_/postgres)
+For your own sanity we recommend running the database in a [Docker](https://www.docker.com/) container. Checkout the
+official [Postgres Docker Image](https://hub.docker.com/_/postgres)
+
+Example Docker Compose file:
+
+```yaml
+version: '3.4'
+
+services:
+  db:
+    container_name: aura-database
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: YOUR_PASSWORD_HERE
+```
+
+#### Viewing
+
+To view your database contents we recommended you use [DataGrip](https://www.jetbrains.com/datagrip/), which we believe is an
+amazing tool to view many databases.
