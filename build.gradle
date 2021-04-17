@@ -1,11 +1,11 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.4.32' apply false
-    id "com.github.johnrengelman.shadow" version "6.1.0" apply false
+    id 'application'
 }
 
 allprojects {
-    apply plugin: "com.github.johnrengelman.shadow"
     apply plugin: "kotlin"
+    apply plugin: "application"
 
     group 'club.chachy'
     version '1.0.0'
@@ -32,4 +32,8 @@ dependencies {
     implementation project(":core")
     implementation project(":core:command-handler")
     implementation project(":modules")
+}
+
+application {
+    mainClassName = "club.chachy.AuraKt"
 }
