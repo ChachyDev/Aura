@@ -4,7 +4,7 @@ import club.chachy.aura.command.serialization.SerializationContext
 import club.chachy.aura.command.serialization.Serializer
 import net.dv8tion.jda.api.entities.User
 
-class UserSerializer : Serializer<User> {
+open class UserSerializer : Serializer<User> {
     private val MENTION_REGEX = "<@!?\\d{17,20}>".toRegex()
 
     private val NAME_DISCRIM_REGEX = ".{2,32}#\\d{4}".toRegex()

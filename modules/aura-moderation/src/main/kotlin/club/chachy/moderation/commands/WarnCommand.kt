@@ -4,32 +4,18 @@ import club.chachy.aura.command.data.Module
 import club.chachy.aura.dsl.dsl.command
 import club.chachy.database.modlogs.Modlogs
 import club.chachy.database.modlogs.modlog.Modlog
+import club.chachy.moderation.moderator
+import club.chachy.utils.context.error
+import club.chachy.utils.context.success
 import com.callicoder.snowflake.Snowflake
-import net.dv8tion.jda.api.Permission
 import net.dv8tion.jda.api.entities.User
 import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 
 fun Module.warn() {
-    fun suffix(int: Int): String {
-        return when (int) {
-            1 -> "st"
-            2 -> "nd"
-            3 -> "rd"
-            21 -> "st"
-            22 -> "nd"
-            23 -> "rd"
-            31 -> "st"
-            32 -> "nd"
-            33 -> "rd"
-            else -> "th"
-        }
-    }
-
     val snowflake = Snowflake()
 
-    command("warn", "[user] [reason]", permissions = listOf(Permission.MESSAGE_MANAGE)) {
+    command("warn", "[user] [reason]", permissions = moderator) {
         if (guild == null) return@command
         val user: User? = args["user"]
         if (user == null) {

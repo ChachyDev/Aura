@@ -11,6 +11,14 @@ fun Aura.module(name: String, block: Module.() -> Unit) {
     commandHandler.registerModule(module)
 }
 
+fun Aura.module(module: Module, block: Module.() -> Unit) {
+    commandHandler.registerModule(module.apply(block))
+}
+
+fun Aura.module(module: Module) {
+    commandHandler.registerModule(module)
+}
+
 
 fun Module.command(
     name: String,

@@ -48,7 +48,11 @@ class AuraCommandHandler(
                     command.permission.forEach {
                         if (!member.hasPermission(it)) {
                             message.channel.sendMessage(embed {
-                                setAuthor("Error $separator ${author.asTag}", null, message.jda.selfUser.effectiveAvatarUrl)
+                                setAuthor(
+                                    "Error $separator ${author.asTag}",
+                                    null,
+                                    message.jda.selfUser.effectiveAvatarUrl
+                                )
                                 setColor(Colors.red_400.asColor())
                                 +"This command requires ${command.permission.joinToString { perm -> perm.getName() }} to be ran!"
                                 setFooter("Command executed by ${author.asTag}", author.effectiveAvatarUrl)

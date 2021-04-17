@@ -5,7 +5,12 @@ import club.chachy.aura.command.serialization.SerializationContext
 import club.chachy.aura.command.serialization.SerializationFactory
 import club.chachy.aura.command.serialization.Serializer
 
-class ArgumentsContainer(val factory: SerializationFactory, raw: List<String>, command: Command, val serializationContext: SerializationContext) {
+class ArgumentsContainer(
+    val factory: SerializationFactory,
+    raw: List<String>,
+    command: Command,
+    val serializationContext: SerializationContext
+) {
     // Maps a spec name to the data
     val rawArgs = HashMap<String, String>()
 

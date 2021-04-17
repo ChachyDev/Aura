@@ -6,5 +6,5 @@ import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.User
 
 interface PrefixFactory {
-    fun get(guild: Guild?, author: User, member: Member?, message: Message) : List<String>
+    fun get(guild: Guild?, author: User, member: Member?, message: Message): List<String>
 }
