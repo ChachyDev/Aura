@@ -18,7 +18,7 @@ jobs:
       - name: Build and push Docker images
         uses: mr-smithers-excellent/docker-build-push@v4
         with:
-          image: aura/aura-bot
+          image: aura/aura
           tag: latest
           dockerfile: Dockerfile
           registry: docker.pkg.github.com
