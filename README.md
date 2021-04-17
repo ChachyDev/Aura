@@ -21,6 +21,32 @@ The only discord bot you will ever need.
 - Discord Bot Token
 - A JRE (JRE 15 is recommended)
 
+#### The Docker Compose Way
+In your terminal, run `docker pull docker.pkg.github.com/chachydev/aura/aura:latest` (Warning: You must be logged into the GitHub Package Registry!)
+
+Once the command is completed if you do not have a docker-compose.yml file create one and use the structure below:
+```yaml
+version: '3.4'
+
+services:
+  aura:
+    container_name: aura-bot
+    image: aura:latest
+    restart: always
+    env_file:
+      - aura.env
+  db:
+    container_name: aura-database
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    env_file:
+      - postgres.env
+```
+
+Execute `docker compose up -d` and tada 🎉🎉 you have a running instance of Aura :) 
+
 #### Env file variables
 
 ```properties
