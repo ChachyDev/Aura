@@ -1,17 +1,30 @@
 plugins {
-    id 'com.palantir.git-version' version '0.12.3'
+    id "com.github.gmazzo.buildconfig" version "3.0.0"
 }
 
 dependencies {
     api project(":core:command-handler")
     api project(":core:utils")
     api project(":core:database")
-    implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '5.5.1.201910021850-r'
+
+    implementation project(":core:config")
 }
 
-jar {
-    manifest {
-        def details = versionDetails()
-        attributes 'Implementation-Version' : "${details.gitHash}-${details.branchName}"
+buildConfig {
+    sourceSets.getByName("main") {
+        buildConfigField('String', 'VERSION', "\"${getGitHash()}-${getBranch()}\"")
     }
 }
+
+static String getGitHash() {
+    def process = 'git rev-parse --short HEAD'.execute()
+    process.waitFor()
+    return process.exitValue() ? 'unknown' : process.text.trim()
+}
+
+static String getBranch() {
+    return "git rev-parse --abbrev-ref HEAD".execute().text.trim()
+}
+
+
+tasks.assembleDist.dependsOn(tasks.generateBuildConfig)

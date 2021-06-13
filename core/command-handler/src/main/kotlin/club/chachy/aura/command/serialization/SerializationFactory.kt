@@ -8,7 +8,7 @@ open class SerializationFactory {
     fun <T : Any> registerSerializer(clazz: KClass<T>, serializer: Serializer<T>) =
         registerSerializer(clazz.java, serializer)
 
-    fun <T> registerSerializer(clazz: Class<T>, serializer: Serializer<T>) {
+    private fun <T> registerSerializer(clazz: Class<T>, serializer: Serializer<T>) {
         when (clazz) {
             Int::class.java -> serializers[Class.forName("java.lang.Integer")] = serializer
             Byte::class.java -> serializers[Class.forName("java.lang.Byte")] = serializer

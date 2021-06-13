@@ -1,6 +1,8 @@
 package club.chachy.aura.command.listener
 
 import club.chachy.aura.command.CommandHandler
+import club.chachy.config.config
+import club.chachy.config.spec.BotSpec
 import club.chachy.database.guilds.Guilds
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent
@@ -27,7 +29,7 @@ class BotListener(private val commandHandler: CommandHandler) : ListenerAdapter(
         }
         Guilds.insert {
             it[id] = event.guild.idLong
-            it[prefix] = "a!"
+            it[prefix] = config[BotSpec.botPrefix]
         }
     }
 

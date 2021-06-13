@@ -1,8 +1,7 @@
 package club.chachy.aura.version
 
-import java.io.File
+import club.chachy.core.BuildConfig
 
 object Version {
-    val version =  Version::class.java.`package`?.implementationVersion
-        ?: GitVersion.gitVersion(File(System.getProperty("user.dir"))) // At least attempt to get the version
+    const val version = BuildConfig.VERSION
 }
