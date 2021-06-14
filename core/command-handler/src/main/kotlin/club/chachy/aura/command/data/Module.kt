@@ -1,6 +1,6 @@
 package club.chachy.aura.command.data
 
-open class Module(val name: String, private val cmds: MutableList<Command> = ArrayList()) {
+open class Module(val name: String, private val cmds: MutableList<Command> = ArrayList(), var isLoaded: Boolean = true) {
     val commands get() = cmds.toList()
 
     fun registerCommand(command: Command) {

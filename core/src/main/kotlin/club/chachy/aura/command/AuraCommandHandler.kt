@@ -41,6 +41,7 @@ class AuraCommandHandler(
         val args = split.toMutableList().apply { remove(name) }
 
         for (module in modules) {
+            if (!module.isLoaded) continue
             val command = module.retrieveCommand(name.removePrefix(prefix))
             if (command != null) {
                 if (command.permission.isNotEmpty()) {

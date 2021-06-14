@@ -12,4 +12,26 @@ abstract class CommandHandler(protected val modules: MutableList<Module>) {
     fun registerModule(module: Module) {
         modules.add(module)
     }
+
+    fun unload(name: String): Boolean =
+        modules.find { it.name == name }
+            .takeIf { it != null }
+            ?.let { unload(it) }
+            ?: false
+
+    private fun unload(module: Module): Boolean {
+        module.isLoaded = false
+        return true
+    }
+
+    fun load(name: String): Boolean =
+        modules.find { it.name == name }
+            .takeIf { it != null }
+            ?.let { load(it) }
+            ?: false
+
+    private fun load(module: Module): Boolean {
+        module.isLoaded = true
+        return true
+    }
 }
