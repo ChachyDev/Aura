@@ -7,18 +7,18 @@ import club.chachy.aura.command.serialization.Serializer
 
 class ArgumentsContainer(
     val factory: SerializationFactory,
-    raw: List<String>,
+    val raw: List<String>,
     command: Command,
     val serializationContext: SerializationContext
 ) {
     // Maps a spec name to the data
-    val rawArgs = HashMap<String, String>()
+    val rawMapped = HashMap<String, String>()
 
     @Suppress("UNCHECKED_CAST")
     inline operator fun <reified T> get(name: String): T? {
         val serializer = (factory.serializers[T::class.java] ?: return null) as Serializer<T>
 
-        val data = rawArgs[name] ?: return null
+        val data = rawMapped[name] ?: return null
 
         return serializer.serialize(serializationContext, data)
     }
@@ -30,7 +30,7 @@ class ArgumentsContainer(
             val item = raw.getOrNull(i)
             if (isRequired && item == null) error("You must specify an argument for: ${spec.clean()}")
             if (item != null) {
-                rawArgs[spec.clean()] = item
+                rawMapped[spec.clean()] = item
             }
         }
     }
