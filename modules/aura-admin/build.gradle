@@ -2,10 +2,16 @@ repositories {
     maven {
         url "https://jitpack.io"
     }
+    mavenCentral()
 }
 
 dependencies {
     implementation project(":core")
     implementation project(":core:utils")
     implementation project(":core:database")
+
+    implementation "org.jetbrains.kotlin:kotlin-script-util"
+    implementation "org.jetbrains.kotlin:kotlin-script-runtime"
+    implementation "org.jetbrains.kotlin:kotlin-compiler-embeddable"
+    implementation "org.jetbrains.kotlin:kotlin-scripting-compiler-embeddable"
 }

@@ -1,5 +1,6 @@
 package club.chachy.admin
 
+import club.chachy.admin.commands.eval
 import club.chachy.admin.commands.load
 import club.chachy.admin.commands.unload
 import club.chachy.aura.command.data.Module
@@ -25,5 +26,6 @@ class AdminModule(aura: Aura) : Module("Admin", passPredicate = { jda.admins.any
 
         unload(aura.commandHandler)
         load(aura.commandHandler)
+        eval()
     }
 }

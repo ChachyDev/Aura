@@ -4,6 +4,7 @@ import club.chachy.aura.command.CommandHandler
 import club.chachy.config.config
 import club.chachy.config.spec.BotSpec
 import club.chachy.database.guilds.Guilds
+import net.dv8tion.jda.api.entities.ChannelType
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
@@ -15,7 +16,7 @@ import org.jetbrains.exposed.sql.select
 
 class BotListener(private val commandHandler: CommandHandler) : ListenerAdapter() {
     override fun onMessageReceived(event: MessageReceivedEvent) {
-        commandHandler.handle(event.message, event.author, event.member, event.guild)
+        commandHandler.handle(event.message, event.author, event.member, if (event.isFromType(ChannelType.TEXT)) event.guild else null)
     }
 
     override fun onMessageUpdate(event: MessageUpdateEvent) {
