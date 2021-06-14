@@ -44,25 +44,25 @@ class AuraCommandHandler(
 
         for (module in modules) {
             if (!module.isLoaded) continue
+            if (!module.passPredicate(author)) continue // Module level permission check
+
             val command = module.retrieveCommand(name.removePrefix(prefix))
             if (command != null) {
                 if (command.permission.isNotEmpty()) {
                     if (member == null) return
-                    command.permission.forEach {
-                        if (!member.hasPermission(it)) {
-                            message.channel.sendMessage(embed {
-                                setAuthor(
-                                    "Error $separator ${author.asTag}",
-                                    null,
-                                    message.jda.selfUser.effectiveAvatarUrl
-                                )
-                                setColor(Colors.red_400.asColor())
-                                +"This command requires ${command.permission.joinToString { perm -> perm.getName() }} to be ran!"
-                                setFooter("Command executed by ${author.asTag}", author.effectiveAvatarUrl)
-                                setTimestamp(Instant.now())
-                            }).queue()
-                            return
-                        }
+                    if (!command.permission.any { member.hasPermission(it) }) {
+                        message.channel.sendMessage(embed {
+                            setAuthor(
+                                "Error $separator ${author.asTag}",
+                                null,
+                                message.jda.selfUser.effectiveAvatarUrl
+                            )
+                            setColor(Colors.red_400.asColor())
+                            +"This command requires ${command.permission.joinToString { perm -> perm.getName() }} to be ran!"
+                            setFooter("Command executed by ${author.asTag}", author.effectiveAvatarUrl)
+                            setTimestamp(Instant.now())
+                        }).queue()
+                        return
                     }
                 }
                 val container =
