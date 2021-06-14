@@ -15,7 +15,7 @@ data class CommandContext(
     val member: Member?,
     val channel: Channel,
     val args: ArgumentsContainer,
-    val environmentData: EnvironmentData
+    val environment: EnvironmentData
 ) {
     fun reply(content: String) = channel.reply(content)
 }
