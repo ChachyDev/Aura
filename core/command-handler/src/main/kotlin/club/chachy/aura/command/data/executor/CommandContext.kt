@@ -1,7 +1,7 @@
 package club.chachy.aura.command.data.executor
 
 import club.chachy.aura.command.args.ArgumentsContainer
-import club.chachy.aura.command.data.env.EnvironmentData
+import club.chachy.aura.command.data.env.Environment
 import club.chachy.aura.command.data.executor.data.Channel
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Member
@@ -15,7 +15,7 @@ data class CommandContext(
     val member: Member?,
     val channel: Channel,
     val args: ArgumentsContainer,
-    val environment: EnvironmentData
+    val environment: Environment
 ) {
     fun reply(content: String) = channel.reply(content)
 }

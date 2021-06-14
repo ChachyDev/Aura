@@ -1,7 +1,7 @@
 package club.chachy.aura.command
 
 import club.chachy.aura.command.args.ArgumentsContainer
-import club.chachy.aura.command.data.env.EnvironmentData
+import club.chachy.aura.command.data.env.Environment
 import club.chachy.aura.command.data.executor.CommandContext
 import club.chachy.aura.command.data.executor.data.Channel
 import club.chachy.aura.command.factory.PrefixFactory
@@ -75,7 +75,7 @@ class AuraCommandHandler(
                         member,
                         Channel(message.channel, message),
                         container,
-                        EnvironmentData(prefixes)
+                        Environment(prefixes)
                     )
                 )
                 return
