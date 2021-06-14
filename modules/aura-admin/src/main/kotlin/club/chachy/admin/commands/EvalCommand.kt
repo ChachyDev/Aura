@@ -8,6 +8,7 @@ import club.chachy.utils.embed
 import club.chachy.utils.separator
 import com.github.fcannizzaro.material.Colors
 import org.jetbrains.kotlin.cli.common.environment.setIdeaIoUseFallback
+import java.lang.reflect.Field
 import java.time.Instant
 import javax.script.ScriptEngineManager
 
@@ -24,7 +25,6 @@ private var isSet = false
 fun setIdea() {
     if (!isSet) {
         setIdeaIoUseFallback()
-        engine.eval("1 + 1")
         isSet = true
     }
 }
@@ -39,13 +39,13 @@ fun Module.eval() = command("eval", "<code>") {
         put("ctx", this@command)
     }
 
-    val result = runCatching { engine.eval(CODE_HEADER + stripped, bindings) }.getOrNull()
+    val catched = runCatching { engine.eval(CODE_HEADER + stripped, bindings) }
 
-    val isSuccess = result != null
+    val result = catched.getOrNull() ?: catched.exceptionOrNull()?.message ?: "No output"
 
     channel.reply(embed {
-        setAuthor("${if (isSuccess) "Success!" else "Failed :("} $separator ${author.asTag}", null, message.jda.selfUser.effectiveAvatarUrl)
-        setColor(if (isSuccess) Colors.green_400.asColor() else Colors.red_400.asColor())
+        setAuthor("${if (catched.isSuccess) "Success!" else "Failed :("} $separator ${author.asTag}", null, message.jda.selfUser.effectiveAvatarUrl)
+        setColor(if (catched.isSuccess) Colors.green_400.asColor() else Colors.red_400.asColor())
 
         +"Code:\n${stripped.toCodeBlock(language)}\nResult:\n${result.toString().toCodeBlock("")}"
 
