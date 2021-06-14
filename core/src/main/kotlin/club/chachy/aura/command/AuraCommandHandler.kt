@@ -1,6 +1,7 @@
 package club.chachy.aura.command
 
 import club.chachy.aura.command.args.ArgumentsContainer
+import club.chachy.aura.command.data.env.EnvironmentData
 import club.chachy.aura.command.data.executor.CommandContext
 import club.chachy.aura.command.data.executor.data.Channel
 import club.chachy.aura.command.factory.PrefixFactory
@@ -22,17 +23,18 @@ class AuraCommandHandler(
     override fun handle(message: Message, author: User, member: Member?, guild: Guild?) {
         val content = message.contentRaw
 
-        var prefix = ""
+        var prefix: String? = null
 
-        for (p in prefixFactory.get(guild, author, member, message)) {
+        val prefixes = prefixFactory.get(guild, author, member, message)
+
+        for (p in prefixes) {
             if (content.startsWith(p)) {
                 prefix = p
                 break
             }
         }
 
-        @Suppress("ReplaceNegatedIsEmptyWithIsNotEmpty")
-        if (!prefix.isNotEmpty()) return
+        if (prefix == null) return
 
         val split = content.split(" ")
 
@@ -72,7 +74,8 @@ class AuraCommandHandler(
                         guild,
                         member,
                         Channel(message.channel, message),
-                        container
+                        container,
+                        EnvironmentData(prefixes)
                     )
                 )
                 return
