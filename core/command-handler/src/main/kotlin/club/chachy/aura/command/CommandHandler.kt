@@ -20,6 +20,8 @@ abstract class CommandHandler(protected val modules: MutableList<Module>) {
             ?: false
 
     private fun unload(module: Module): Boolean {
+        if (!module.isLoaded) return false
+
         module.isLoaded = false
         return true
     }
@@ -31,6 +33,8 @@ abstract class CommandHandler(protected val modules: MutableList<Module>) {
             ?: false
 
     private fun load(module: Module): Boolean {
+        if (module.isLoaded) return false
+
         module.isLoaded = true
         return true
     }

@@ -7,3 +7,4 @@ include ":core:utils"
 
 include ":modules:aura-core"
 include ":modules:aura-moderation"
+include ":modules:aura-admin"
