@@ -11,7 +11,7 @@ The only discord bot you will ever need.
 
 #### Prerequisites
 
-- A JDK (JDK 15 is recommended)
+- A JDK (JDK 16 is recommended)
 
 ### Running
 
@@ -19,7 +19,7 @@ The only discord bot you will ever need.
 
 - PSQL (PostgreSQL) database
 - Discord Bot Token
-- A JRE (JRE 15 is recommended)
+- A JRE (JRE 16 is recommended)
 
 #### The Docker Compose Way
 If you do not have a docker-compose.yml file create one and use the structure below:
@@ -48,10 +48,10 @@ Execute `docker compose up -d` and tada 🎉🎉 you have a running instance of 
 #### Env file variables
 
 ```properties
-BOT_TOKEN=YOUR_DISCORD_BOT_TOKEN
-DATABASE_URL=jdbc:postgresql://localhost:5432/aura
-DATABASE_USER=postgres
-DATABASE_PASSWORD=YOUR_POSTGRES_PASSWORD
+bot_token=YOUR_DISCORD_BOT_TOKEN
+database_url=jdbc:postgresql://localhost:5432/aura
+database_user=postgres
+database_password=YOUR_POSTGRES_PASSWORD
 ```
 
 #### Additional
@@ -63,7 +63,7 @@ about that :)
 
 #### Prerequisites
 
-- A JDK (JDK 15 is recommended)
+- A JDK (JDK 16 is recommended)
 - An Integrated Development Environment (IDE) ([IntelliJ IDEA](https://www.jetbrains.com/idea/) is recommended)
 - PSQL (PostgreSQL) database
 
