@@ -7,17 +7,11 @@ import club.chachy.aura.dsl.dsl.command
 import club.chachy.utils.embed
 import club.chachy.utils.separator
 import com.github.fcannizzaro.material.Colors
-import org.jetbrains.kotlin.cli.common.environment.setIdeaIoUseFallback
-import java.lang.reflect.Field
 import java.time.Instant
 import javax.script.ScriptEngine
-import javax.script.ScriptEngineManager
 
 private val CODE_HEADER = """
-    
-    
     val ctx = bindings["ctx"] as club.chachy.aura.command.data.executor.CommandContext
-    
     
 """.trimIndent()
 
