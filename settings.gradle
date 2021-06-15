@@ -6,5 +6,6 @@ include ":core:config"
 include ":core:utils"
 
 include ":modules:aura-core"
+include ":modules:aura-info"
 include ":modules:aura-moderation"
 include ":modules:aura-admin"
