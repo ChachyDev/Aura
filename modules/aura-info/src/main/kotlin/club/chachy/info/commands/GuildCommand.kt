@@ -13,7 +13,7 @@ fun Module.guild() = command("guild", "[guild]") {
 
     guild?.let {
         channel.reply {
-            setAuthor(it.name, null, it.iconUrl)
+            setAuthor(it.name, it.iconUrl, it.iconUrl)
             it.owner?.color?.let { setColor(it) }
 
             mapOf("Name" to it.name, "ID" to it.id, "Owner" to (it.owner?.user?.asTag ?: "None"), "Roles" to it.roles.filter { it.name != "@everyone" }.joinToString { it.asMention }).entries.forEach {

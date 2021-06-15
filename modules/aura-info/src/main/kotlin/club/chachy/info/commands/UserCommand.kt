@@ -12,7 +12,7 @@ fun Module.user() = command("user", "[user]") {
     val member = guild?.getMember(user)
 
     channel.reply {
-        setAuthor(user.asTag, null, user.effectiveAvatarUrl)
+        setAuthor(user.asTag, user.effectiveAvatarUrl, user.effectiveAvatarUrl)
         member?.color?.let { setColor(it) }
 
         mapOf("Name" to user.name, "Discriminator" to user.discriminator, "ID" to user.id, "Bot" to user.isBot.toHumanString()).entries.forEach {
