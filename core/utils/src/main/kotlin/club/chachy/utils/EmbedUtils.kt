@@ -11,3 +11,7 @@ fun embed(block: KotlinEmbedBuilder.() -> Unit): MessageEmbed {
 fun Channel.send(block: KotlinEmbedBuilder.() -> Unit) {
     send(KotlinEmbedBuilder().apply(block).build())
 }
+
+fun Channel.reply(block: KotlinEmbedBuilder.() -> Unit) {
+    reply(KotlinEmbedBuilder().apply(block).build())
+}
