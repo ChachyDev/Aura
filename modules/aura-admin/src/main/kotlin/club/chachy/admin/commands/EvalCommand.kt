@@ -10,28 +10,18 @@ import com.github.fcannizzaro.material.Colors
 import org.jetbrains.kotlin.cli.common.environment.setIdeaIoUseFallback
 import java.lang.reflect.Field
 import java.time.Instant
+import javax.script.ScriptEngine
 import javax.script.ScriptEngineManager
 
 private val CODE_HEADER = """
+    
+    
     val ctx = bindings["ctx"] as club.chachy.aura.command.data.executor.CommandContext
     
     
 """.trimIndent()
 
-private val engine = ScriptEngineManager().getEngineByName("kotlin")
-
-private var isSet = false
-
-fun setIdea() {
-    if (!isSet) {
-        setIdeaIoUseFallback()
-        isSet = true
-    }
-}
-
-fun Module.eval() = command("eval", "<code>") {
-    setIdea()
-
+fun Module.eval(engine: ScriptEngine) = command("eval", "<code>") {
     val code = args.raw.joinToString(" ")
     val (stripped, language) = code.block()
 
@@ -39,7 +29,7 @@ fun Module.eval() = command("eval", "<code>") {
         put("ctx", this@command)
     }
 
-    val catched = runCatching { engine.eval(CODE_HEADER + stripped, bindings) }
+    val catched = runCatching { engine.eval(imports.joinToString("\n") { "import $it" } + CODE_HEADER + stripped, bindings) }
 
     val result = catched.getOrNull() ?: catched.exceptionOrNull()?.message ?: "No output"
 
@@ -47,9 +37,17 @@ fun Module.eval() = command("eval", "<code>") {
         setAuthor("${if (catched.isSuccess) "Success!" else "Failed :("} $separator ${author.asTag}", null, message.jda.selfUser.effectiveAvatarUrl)
         setColor(if (catched.isSuccess) Colors.green_400.asColor() else Colors.red_400.asColor())
 
-        +"Code:\n${stripped.toCodeBlock(language)}\nResult:\n${result.toString().toCodeBlock("")}"
+        +"Code:\n${stripped.toCodeBlock(language)}\nResult:\n${result.toString().stripToken().toCodeBlock("")}"
 
         setFooter("Requested by ${author.asTag}", author.effectiveAvatarUrl)
         setTimestamp(Instant.now())
     })
+}
+
+private val regex = "[a-zA-Z0-9_-]{23,28}\\.[a-zA-Z0-9_-]{6,7}\\.[a-zA-Z0-9_-]{27}".toRegex()
+private val passwordRegex = "password=.+".toRegex()
+
+private fun String.stripToken(): String {
+    return replace(regex, "[removed for security reasons]")
+        .replace(passwordRegex, "[removed for security reasons]")
 }

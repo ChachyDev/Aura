@@ -1,12 +1,12 @@
 package club.chachy.admin
 
-import club.chachy.admin.commands.eval
-import club.chachy.admin.commands.load
-import club.chachy.admin.commands.unload
+import club.chachy.admin.commands.*
 import club.chachy.aura.command.data.Module
 import club.chachy.aura.dsl.Aura
 import club.chachy.aura.dsl.dsl.module
 import net.dv8tion.jda.api.JDA
+import org.jetbrains.kotlin.cli.common.environment.setIdeaIoUseFallback
+import javax.script.ScriptEngineManager
 
 @Suppress("ObjectPropertyName")
 val _admins = ArrayList<Long>()
@@ -26,6 +26,10 @@ class AdminModule(aura: Aura) : Module("Admin", passPredicate = { jda.admins.any
 
         unload(aura.commandHandler)
         load(aura.commandHandler)
-        eval()
+
+        setIdeaIoUseFallback()
+        eval(ScriptEngineManager().getEngineByName("kotlin"))
+
+        import()
     }
 }
