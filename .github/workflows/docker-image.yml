@@ -15,7 +15,16 @@ jobs:
           ./gradlew distTar
           mkdir actions
           cp ./build/distributions/Aura-*.tar ./actions/Aura.tar
-      - name: Build and push Docker images
+      - name: Build and push Docker images (latest)
+        uses: mr-smithers-excellent/docker-build-push@v4
+        with:
+          image: aura/aura-${GITHUB_REF##*/}
+          tag: ${{ steps.vars.outputs.sha_short }}
+          dockerfile: Dockerfile
+          registry: docker.pkg.github.com
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push Docker images (with commit-id)
         uses: mr-smithers-excellent/docker-build-push@v4
         with:
           image: aura/aura-${GITHUB_REF##*/}
