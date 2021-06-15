@@ -5,9 +5,9 @@ import club.chachy.aura.command.serialization.Serializer
 import net.dv8tion.jda.api.entities.User
 
 open class UserSerializer : Serializer<User> {
-    private val MENTION_REGEX = "<@!?\\d{17,20}>".toRegex()
+    private val mentionRegex = "<@!?(\\d{17,20})>".toRegex()
 
-    private val NAME_DISCRIM_REGEX = ".{2,32}#\\d{4}".toRegex()
+    private val nameDiscordRegex = ".{2,32}#\\d{4}".toRegex()
 
     override fun serialize(context: SerializationContext, data: String): User? {
         val id = data.toLongOrNull()
@@ -16,18 +16,18 @@ open class UserSerializer : Serializer<User> {
             return context.guild?.getMemberById(id)?.user ?: context.jda.getUserById(id)
         }
 
-        if (data.matches(MENTION_REGEX)) {
-            return context.guild?.getMemberById(data.numbersOnly())?.user ?: context.jda.getUserById(data.numbersOnly())
+        val mention = mentionRegex.find(data)
+
+        if (mention != null) {
+            val userId = mention.groupValues[1]
+            return context.guild?.getMemberById(userId)?.user ?: context.jda.getUserById(userId)
         }
 
-        if (data.matches(NAME_DISCRIM_REGEX)) {
-            val nameDiscrim = data.split("#")
-            return context.guild?.members?.find { it.user.name == nameDiscrim[0] && it.user.discriminator == nameDiscrim[1] }?.user
-                ?: context.jda.users.find { it.name == nameDiscrim[0] && it.discriminator == nameDiscrim[1] }
+        if (data.matches(nameDiscordRegex)) {
+            return context.guild?.members?.find { it.user.asTag == data }?.user
+                ?: context.jda.users.find { it.asTag == data }
         }
 
         return null
     }
-
-    private fun String.numbersOnly() = replace("[^0-9]".toRegex(), "")
 }
