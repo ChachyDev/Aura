@@ -17,7 +17,6 @@ object Screenshot {
             try {
                 a.init()
             } catch (t: Throwable) {
-                t.printStackTrace()
                 continue
             }
             
