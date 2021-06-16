@@ -27,8 +27,10 @@ data class Channel(private val channel: MessageChannel, private val message: Mes
     fun replyBlocking(content: MessageEmbed): Message =
         message.reply(content).allowedMentions(allowedMentions).complete()
 
-    fun send(content: String) = channel.sendMessage(content).allowedMentions(allowedMentions).queue()
     fun send(content: MessageEmbed) = channel.sendMessage(content).allowedMentions(allowedMentions).queue()
+    fun send(content: String) = channel.sendMessage(content).allowedMentions(allowedMentions).queue()
+    fun send(file: File) = channel.sendFile(file).allowedMentions(allowedMentions).queue()
+
     fun reply(content: String) = reply(message, content).queue()
     fun reply(content: MessageEmbed) = reply(message, content).queue()
 

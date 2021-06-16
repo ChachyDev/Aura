@@ -1,11 +1,11 @@
 package club.chachy.selenium
 
 import club.chachy.screenshot.api.ScreenshotHandler
+import club.chachy.selenium.utils.download
+import club.chachy.selenium.utils.extractor
 import club.chachy.selenium.utils.http.github.GithubAsset
 import club.chachy.selenium.utils.http.github.GithubRelease
 import club.chachy.selenium.utils.http.http
-import club.chachy.selenium.utils.download
-import club.chachy.selenium.utils.extractor
 import club.chachy.selenium.utils.os
 import io.ktor.client.request.*
 import kotlinx.coroutines.runBlocking
@@ -39,9 +39,10 @@ class SeleniumHandler : ScreenshotHandler {
         driver = FirefoxDriver()
     }
 
-    override fun screenshot(url: URL, dest: File): File {
+    override fun screenshot(url: URL, dest: File, action: WebDriver.() -> Unit): File {
         driver[url.toString()]
 
+        action(driver)
         val file = (driver as TakesScreenshot).getScreenshotAs(OutputType.FILE) ?: error("Failed to screenshot")
 
         BufferedInputStream(FileInputStream(file)).use { `in` ->
