@@ -1,0 +1,16 @@
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.seleniumhq.selenium:selenium-java:4.0.0-beta-4"
+    implementation "org.apache.commons:commons-compress:1.20"
+    implementation "com.github.thrau:jarchivelib:c714e4a59e"
+    implementation "io.ktor:ktor-client-apache:1.6.0"
+    implementation "io.ktor:ktor-client-gson:1.6.0"
+    implementation "io.ktor:ktor-client-core:1.6.0"
+
+    compileOnly "org.slf4j:slf4j-api:2.0.0-alpha1"
+
+    implementation project(":core:database")
+}

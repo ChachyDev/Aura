@@ -7,6 +7,7 @@ import club.chachy.config.spec.BotSpec
 import club.chachy.config.spec.DatabaseSpec
 import club.chachy.database.AuraDatabase
 import club.chachy.modules.createModules
+import club.chachy.screenshot.Screenshot
 import net.dv8tion.jda.api.requests.GatewayIntent
 import net.dv8tion.jda.api.utils.ChunkingFilter
 import net.dv8tion.jda.api.utils.cache.CacheFlag
@@ -18,6 +19,7 @@ fun main() {
         config[DatabaseSpec.user],
         config[DatabaseSpec.password]
     )
+    Screenshot.init()
     aura(config[BotSpec.token], prefixFactory = GuildPrefixFactory()) {
         createModules()
 

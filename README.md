@@ -20,6 +20,7 @@ The only discord bot you will ever need.
 - PSQL (PostgreSQL) database
 - Discord Bot Token
 - A JRE (JRE 16 is recommended)
+- Firefox installed
 
 #### The Docker Compose Way
 If you do not have a docker-compose.yml file create one and use the structure below:
@@ -66,6 +67,7 @@ about that :)
 - A JDK (JDK 16 is recommended)
 - An Integrated Development Environment (IDE) ([IntelliJ IDEA](https://www.jetbrains.com/idea/) is recommended)
 - PSQL (PostgreSQL) database
+- Firefox installed
 
 ### Recommendations
 

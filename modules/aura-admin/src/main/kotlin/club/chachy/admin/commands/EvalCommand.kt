@@ -11,7 +11,10 @@ import java.time.Instant
 import javax.script.ScriptEngine
 
 private val CODE_HEADER = """
-    val ctx = bindings["ctx"] as club.chachy.aura.command.data.executor.CommandContext
+    import club.chachy.*
+    import java.*
+    
+    val ctx = bindings["ctx"] as CommandContext
     
 """.trimIndent()
 
@@ -25,13 +28,13 @@ fun Module.eval(engine: ScriptEngine) = command("eval", "<code>") {
 
     val catched = runCatching { engine.eval(imports.joinToString("\n") { "import $it" } + CODE_HEADER + stripped, bindings) }
 
-    val result = catched.getOrNull() ?: catched.exceptionOrNull()?.message ?: "No output"
+    val result = catched.getOrNull()?.toString() ?: catched.exceptionOrNull()?.message ?: "No output"
 
     channel.reply(embed {
         setAuthor("${if (catched.isSuccess) "Success!" else "Failed :("} $separator ${author.asTag}", null, message.jda.selfUser.effectiveAvatarUrl)
         setColor(if (catched.isSuccess) Colors.green_400.asColor() else Colors.red_400.asColor())
 
-        +"Code:\n${stripped.toCodeBlock(language)}\nResult:\n${result.toString().stripToken().toCodeBlock("")}"
+        +"Code:\n${stripped.toCodeBlock(language)}\nResult:\n${result.stripToken().toCodeBlock("")}"
 
         setFooter("Requested by ${author.asTag}", author.effectiveAvatarUrl)
         setTimestamp(Instant.now())

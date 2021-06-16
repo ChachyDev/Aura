@@ -3,6 +3,7 @@ package club.chachy.aura.command.data.executor.data
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.MessageChannel
 import net.dv8tion.jda.api.entities.MessageEmbed
+import java.io.File
 
 /**
  * Cleaner version of JDA's [MessageChannel] :)
