@@ -1,5 +1,8 @@
 dependencies {
     api("com.uchuhimo:konf:1.1.2") {
         exclude module: "kotlin-stdlib-jdk8"
+        exclude module: "kotlin-reflect"
     }
+
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.5.10"
 }

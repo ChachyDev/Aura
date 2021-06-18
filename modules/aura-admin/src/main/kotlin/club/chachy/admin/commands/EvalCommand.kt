@@ -3,58 +3,85 @@ package club.chachy.admin.commands
 import club.chachy.admin.utils.block
 import club.chachy.admin.utils.toCodeBlock
 import club.chachy.aura.command.data.Module
+import club.chachy.aura.dsl.Aura
 import club.chachy.aura.dsl.dsl.command
-import club.chachy.utils.embed
+import club.chachy.aura.util.http
 import club.chachy.utils.reply
-import club.chachy.utils.separator
 import com.github.fcannizzaro.material.Colors
-import java.time.Instant
 import javax.script.ScriptEngine
-import kotlin.math.min
+
+private const val INBOX = "\uD83D\uDCE5"
+
+private const val OUTBOX = "\uD83D\uDCE4"
 
 private val CODE_HEADER = """
     ${
     listOf(
         "club.chachy.aura.command.data.executor.*",
         "net.dv8tion.jda.api.events.message.*",
+        "io.ktor.client.engine.apache.*",
+        "io.ktor.client.features.json.*",
         "net.dv8tion.jda.api.entities.*",
         "net.dv8tion.jda.api.events.*",
+        "io.ktor.client.request.*",
         "club.chachy.screenshot.*",
         "club.chachy.database.*",
+        "club.chachy.config.*",
+        "kotlinx.coroutines.*",
+        "io.ktor.client.*",
         "java.io.*"
     ).joinToString("\n") { "import $it" }
 }
     
+    val http = bindings["http"] as HttpClient
+    val aura = bindings["aura"] as club.chachy.aura.dsl.Aura
     val ctx = bindings["ctx"] as CommandContext
+    val bot = bindings["aura"] as club.chachy.aura.dsl.Aura
     
+    runBlocking {
     
 """.trimIndent()
 
-fun Module.eval(engine: ScriptEngine) = command("eval", "<code>") {
+val CODE_FOOTER = """
+    
+    }
+""".trimIndent()
+
+fun Module.eval(engine: ScriptEngine, aura: Aura) = command("eval", "<code>") {
     val code = args.raw.joinToString(" ")
     val (stripped, language) = code.block()
 
     val bindings = engine.createBindings().apply {
         put("ctx", this@command)
+        put("http", http)
+        put("aura", aura)
     }
 
-    val catched =
-        runCatching { engine.eval(imports.joinToString("\n") { "import $it" } + CODE_HEADER + stripped, bindings) }
+    val start = System.currentTimeMillis()
 
-    val result = (catched.getOrNull()?.toString() ?: catched.exceptionOrNull()?.message ?: "No output").truncate(2047)
+    val catched =
+        runCatching { engine.eval(imports.joinToString("\n") { "import $it" } + CODE_HEADER + stripped + CODE_FOOTER, bindings) }
+
+    val evaluatedTime = System.currentTimeMillis() - start
+
+    val result = catched.getOrNull() ?: catched.exceptionOrNull() ?: "No output"
 
     channel.reply {
-        setAuthor(
-            "${if (catched.isSuccess) "Success!" else "Failed :("} $separator ${author.asTag}",
-            null,
-            message.jda.selfUser.effectiveAvatarUrl
-        )
-        setColor(if (catched.isSuccess) Colors.green_400.asColor() else Colors.red_400.asColor())
+        val (title, color) = if (catched.isSuccess) {
+            "Evaluation Complete" to Colors.green_400.asColor()
+        } else {
+            "Evaluation Failed" to Colors.red_400.asColor()
+        }
 
-        +"Code:\n${stripped.toCodeBlock(language)}\nResult:\n${result.stripToken().toCodeBlock("")}"
+        setTitle(title)
+        setColor(color)
 
-        setFooter("Requested by ${author.asTag}", author.effectiveAvatarUrl)
-        setTimestamp(Instant.now())
+        +"Output Type: ${if (result == "No output") "None" else result::class.java.simpleName}"
+
+        field("$INBOX **Input**", stripped.toCodeBlock(language), false)
+        field("$OUTBOX **Output**", result.string().stripToken().toCodeBlock(language), false)
+
+        setFooter("Evaluated in ${evaluatedTime}ms")
     }
 }
 
@@ -66,10 +93,9 @@ private fun String.stripToken(): String {
         .replace(passwordRegex, "[removed for security reasons]")
 }
 
-private fun String.truncate(max: Int) =
-    if (length < max) this
-    else substring(0, min(length, max - 3)) + "..."
-
-private fun String.clean(): String {
-    return replace("```", "")
+private fun Any.string(): String {
+    return when (this) {
+        is Throwable -> message ?: stackTraceToString()
+        else -> toString()
+    }
 }

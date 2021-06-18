@@ -2,12 +2,20 @@ plugins {
     id "com.github.gmazzo.buildconfig" version "3.0.0"
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     api project(":core:command-handler")
     api project(":core:utils")
     api project(":core:database")
 
     implementation project(":core:config")
+
+    api "io.ktor:ktor-client-apache:1.6.0"
+    api "io.ktor:ktor-client-gson:1.6.0"
+    api "io.ktor:ktor-client-core:1.6.0"
 }
 
 buildConfig {

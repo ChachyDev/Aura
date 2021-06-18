@@ -10,11 +10,12 @@ import club.chachy.aura.command.serialization.SerializationFactory
 import club.chachy.aura.command.serialization.default.DefaultSerializationFactory
 import club.chachy.config.config
 import club.chachy.config.spec.BotSpec
+import club.chachy.core.BuildConfig
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
 
 class Aura(
-    private val token: String,
+    val token: String,
     private val prefixes: List<String> = listOf(config[BotSpec.botPrefix]),
     private val serializationFactory: SerializationFactory = DefaultSerializationFactory(),
     private val prefixFactory: PrefixFactory = DefaultPrefixFactory(prefixes),

@@ -1,10 +1,14 @@
 dependencies {
     api("org.jetbrains.exposed:exposed-core:0.30.2") {
         exclude module: "kotlin-stdlib"
+        exclude module: "kotlin-reflect"
     }
     api("org.jetbrains.exposed:exposed-jdbc:0.30.2") {
         exclude module: "exposed-core"
         exclude module: "kotlin-stdlib"
+        exclude module: "kotlin-reflect"
     }
+
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.5.10"
     api "org.postgresql:postgresql:42.2.16"
 }

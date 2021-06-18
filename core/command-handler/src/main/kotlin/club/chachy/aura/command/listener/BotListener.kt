@@ -16,11 +16,27 @@ import org.jetbrains.exposed.sql.select
 
 class BotListener(private val commandHandler: CommandHandler) : ListenerAdapter() {
     override fun onMessageReceived(event: MessageReceivedEvent) {
-        commandHandler.handle(event.message, event.author, event.member, if (event.isFromType(ChannelType.TEXT)) event.guild else null)
+        commandHandler.handle(
+            event.message,
+            event.author,
+            event.member,
+            if (event.isFromType(ChannelType.TEXT)) event.guild else null,
+            null
+        )
     }
 
     override fun onMessageUpdate(event: MessageUpdateEvent) {
-        commandHandler.handle(event.message, event.author, event.member, event.guild)
+        event.channel.history.retrievePast(1).complete().let {
+            if (it.any { m -> m.author.idLong == m.jda.selfUser.idLong }) {
+                commandHandler.handle(
+                    event.message,
+                    event.author,
+                    event.member,
+                    event.guild,
+                    it.first { m -> m.author.idLong == m.jda.selfUser.idLong }
+                )
+            }
+        }
     }
 
     override fun onGuildJoin(event: GuildJoinEvent) {

@@ -28,7 +28,7 @@ class AdminModule(aura: Aura) : Module("Admin", passPredicate = { jda.admins.any
         load(aura.commandHandler)
 
         setIdeaIoUseFallback()
-        eval(ScriptEngineManager().getEngineByName("kotlin"))
+        eval(ScriptEngineManager().getEngineByName("kotlin"), aura)
 
         import()
     }

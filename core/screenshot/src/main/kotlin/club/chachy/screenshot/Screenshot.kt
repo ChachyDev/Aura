@@ -2,6 +2,9 @@ package club.chachy.screenshot
 
 import club.chachy.screenshot.api.ScreenshotHandler
 import club.chachy.selenium.SeleniumHandler
+import org.openqa.selenium.By
+import org.openqa.selenium.Cookie
+import org.openqa.selenium.SearchContext
 import org.openqa.selenium.WebDriver
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -18,6 +21,9 @@ object Screenshot {
             try {
                 a.init()
             } catch (t: Throwable) {
+                if (apis.size == 1) {
+                    t.printStackTrace()
+                }
                 continue
             }
 
@@ -30,7 +36,7 @@ object Screenshot {
         }
     }
 
-    fun screenshot(url: String, dest: File, action: WebDriver.() -> Unit = {}): File {
+    fun screenshot(url: String, dest: File?, action: WebDriver.() -> Unit = {}): File {
         return api?.screenshot(url, dest, action) ?: error("There are no screenshotting APIs available...")
     }
 }

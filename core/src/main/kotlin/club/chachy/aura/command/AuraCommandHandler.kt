@@ -20,7 +20,7 @@ class AuraCommandHandler(
     private val serializationFactory: SerializationFactory,
     private val prefixFactory: PrefixFactory
 ) : CommandHandler(ArrayList()) {
-    override fun handle(message: Message, author: User, member: Member?, guild: Guild?) {
+    override fun handle(message: Message, author: User, member: Member?, guild: Guild?, messageToEdit: Message?) {
         val content = message.contentRaw
 
         var prefix: String? = null
@@ -73,7 +73,7 @@ class AuraCommandHandler(
                         author,
                         guild,
                         member,
-                        Channel(message.channel, message),
+                        Channel(message.channel, messageToEdit ?: message, messageToEdit),
                         container,
                         Environment(prefixes)
                     )

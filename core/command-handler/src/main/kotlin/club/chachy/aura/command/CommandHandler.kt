@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.User
 
 abstract class CommandHandler(protected val modules: MutableList<Module>) {
-    abstract fun handle(message: Message, author: User, member: Member?, guild: Guild?)
+    abstract fun handle(message: Message, author: User, member: Member?, guild: Guild?, messageToEdit: Message?)
 
     fun registerModule(module: Module) {
         modules.add(module)
